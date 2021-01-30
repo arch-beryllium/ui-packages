@@ -1,0 +1,27 @@
+name: Build
+on:
+  push:
+  schedule:
+    - cron: 0 */6 * * *
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container: archlinux
+    steps:
+      - uses: actions/checkout@v1
+      - run: pacman -Sy wget git --noconfirm
+      - run: ./build.sh
+      - run: |
+          rm repo/plasma-mobile.db repo/plasma-mobile.files
+          cp repo/plasma-mobile.db.tar.xz repo/plasma-mobile.db
+          cp repo/plasma-mobile.files.tar.xz repo/plasma-mobile.files
+      - uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: packages
+          FOLDER: repo
+          SKIP_EMPTY_COMMITS: true
+          SQUASH_HISTORY: true
+          MESSAGE: "Package updates"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
