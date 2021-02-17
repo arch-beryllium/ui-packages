@@ -1,44 +1,53 @@
 #!/bin/bash
+
+tmpdir=$(mktemp -d)
+cleanup() {
+  rm -rf "$tmpdir"
+}
+trap cleanup EXIT
+
+baseurl="https://mirror.alpix.eu/manjaro/arm-unstable"
+
+for repo in extra community kde-unstable; do
+  wget "$baseurl/$repo/aarch64/$repo.db" -O "$tmpdir/$repo.db"
+  mkdir -p "$tmpdir/$repo"
+  tar -xzf "$tmpdir/$repo.db" -C "$tmpdir/$repo" >/dev/null 2>&1
+done
+
 for ui in "plasma-mobile"; do
   IFS=$'\n' read -d '' -r -a packages <"$ui.packages"
   mkdir -p repo/$ui
-  tmpdir=$(mktemp -d)
-  for repo in core extra community; do
-    baseurl="https://mirror.alpix.eu/manjaro/arm-unstable/$repo/aarch64"
-    wget "$baseurl/$repo.db" -O "$tmpdir/$repo.db"
-    tar -xzf "$tmpdir/$repo.db" -C "$tmpdir" >/dev/null 2>&1
-    for pkgdir in "$tmpdir"/*/; do
-      IFS=$'\n' read -d '' -r -a lines <"$pkgdir/desc"
-      filename=""
-      pkgname=""
-      packager=""
-      for i in "${!lines[@]}"; do
-        line="${lines[$i]}"
-        if [ "$line" == "%FILENAME%" ]; then
-          filename="${lines[$i + 1]}"
-        elif [ "$line" == "%NAME%" ]; then
-          pkgname="${lines[$i + 1]}"
-        elif [ "$line" == "%PACKAGER%" ]; then
-          packager="${lines[$i + 1]}"
-        fi
-        if [ -n "$filename" ] && [ -n "$pkgname" ] && [ -n "$packager" ]; then
-          break
-        fi
-      done
-      for package in "${packages[@]}"; do
-        if [ "$package" == "$pkgname" ]; then
-          if [[ "$packager" == *"Arch Linux ARM Build System"* ]]; then
-            echo "Package $package is already provided by ALARM"
-            continue
-          fi
-          if [ ! -f "repo/$ui/$filename" ]; then
-            wget "$baseurl/$filename" -O "repo/$ui/$filename"
-            repo-add -R -n -p "repo/$ui/$ui.db.tar.xz" "repo/$ui/$filename"
-          fi
-        fi
-      done
-    done
-  done
 
-  rm -rf "$tmpdir"
+  for packageCombo in "${packages[@]}"; do
+    pkgfile=("$tmpdir/$packageCombo-"*/desc)
+    # shellcheck disable=SC2128
+    if [ ! -f "$pkgfile" ]; then
+      echo "Package not found: $packageCombo"
+      exit 1
+    fi
+
+    # shellcheck disable=SC2128
+    IFS=$'\n' read -d '' -r -a lines <"$pkgfile"
+    filename=""
+    packager=""
+    for i in "${!lines[@]}"; do
+      line="${lines[$i]}"
+      if [ "$line" == "%FILENAME%" ]; then
+        filename="${lines[$i + 1]}"
+      elif [ "$line" == "%PACKAGER%" ]; then
+        packager="${lines[$i + 1]}"
+      fi
+      if [ -n "$filename" ] && [ -n "$packager" ]; then
+        break
+      fi
+    done
+    if [[ "$packager" == *"Arch Linux ARM Build System"* ]]; then
+      echo "Package $packageCombo is already provided by ALARM"
+      continue
+    fi
+    if [ ! -f "repo/$ui/$filename" ]; then
+      wget "$baseurl/$(dirname "$packageCombo")/aarch64/$filename" -O "repo/$ui/$filename"
+      repo-add -R -n -p "repo/$ui/$ui.db.tar.xz" "repo/$ui/$filename"
+    fi
+  done
 done
