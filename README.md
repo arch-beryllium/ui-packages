@@ -8,4 +8,7 @@ To use it configure your `/etc/pacman.conf` like this:
 ```
 [plasma-mobile]
 Server = https://raw.githubusercontent.com/arch-beryllium/ui-packages/packages/plasma-mobile
+
+[lomiri]
+Server = https://raw.githubusercontent.com/arch-beryllium/ui-packages/packages/lomiri
 ```

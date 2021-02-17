@@ -14,7 +14,7 @@ for repo in extra community kde-unstable; do
   tar -xzf "$tmpdir/$repo.db" -C "$tmpdir/$repo" >/dev/null 2>&1
 done
 
-for ui in "plasma-mobile"; do
+for ui in "plasma-mobile" "lomiri"; do
   IFS=$'\n' read -d '' -r -a packages <"$ui.packages"
   mkdir -p repo/$ui
 
@@ -43,7 +43,7 @@ for ui in "plasma-mobile"; do
     done
     if [[ "$packager" == *"Arch Linux ARM Build System"* ]]; then
       echo "Package $packageCombo is already provided by ALARM"
-      continue
+      exit 1
     fi
     if [ ! -f "repo/$ui/$filename" ]; then
       wget "$baseurl/$(dirname "$packageCombo")/aarch64/$filename" -O "repo/$ui/$filename"
