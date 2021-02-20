@@ -7,19 +7,31 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: archlinux
+    container: ubuntu:groovy
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
       - uses: actions/checkout@v1
-      - run: pacman -Sy wget git --noconfirm
-      - run: ./build.sh
-      - run: |
+      - name: Install dependencies and tools
+        run: |
+          apt-get update
+          apt-get install -y wget git meson python3 python3-pip python3-setuptools python3-wheel ninja-build gcc pkg-config m4 libarchive-tools libarchive-dev libssl-dev nodejs
+          git clone https://git.archlinux.org/pacman.git --depth=1 --branch=v5.2.2 2>&1
+          cd pacman
+          meson setup builddir
+          meson install -C builddir
+      - name: Create repo
+        run: ./build.sh
+      - name: Remove symlinks
+        run: |
           rm repo/plasma-mobile/plasma-mobile.db repo/plasma-mobile/plasma-mobile.files
           cp repo/plasma-mobile/plasma-mobile.db.tar.xz repo/plasma-mobile/plasma-mobile.db
           cp repo/plasma-mobile/plasma-mobile.files.tar.xz repo/plasma-mobile/plasma-mobile.files
           rm repo/lomiri/lomiri.db repo/lomiri/lomiri.files
           cp repo/lomiri/lomiri.db.tar.xz repo/lomiri/lomiri.db
           cp repo/lomiri/lomiri.files.tar.xz repo/lomiri/lomiri.files
-      - uses: s0/git-publish-subdir-action@develop
+      - name: Upload repo
+        uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
           BRANCH: packages
