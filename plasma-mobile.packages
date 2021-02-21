@@ -6,13 +6,13 @@ community/libqofono-qt5
 community/mplus-font
 community/ofonoctl
 community/okular-mobile
-community/plasma-mobile-nm
 community/plasma-mobile-settings
 community/plymouth-shim
 community/qt5-pim
 community/telepathy-ofono
 community/zswap-arm
 extra/bootsplash-systemd
+extra/plasma-mobile-nm
 extra/qt5-es2-base
 extra/qt5-es2-declarative
 extra/qt5-es2-multimedia
@@ -135,7 +135,6 @@ kde-unstable/plasma-nano
 kde-unstable/plasma-pa
 kde-unstable/plasma-phone-components
 kde-unstable/plasma-phonebook
-kde-unstable/plasma-pix
 kde-unstable/plasma-settings
 kde-unstable/plasma-wayland-session
 kde-unstable/plasma-workspace
