@@ -12,6 +12,7 @@ community/ayatana-indicator-sound
 community/biometryd
 community/buteo-syncfw-qml
 community/click
+community/cmake-extras
 community/content-hub
 community/dbus-cpp
 community/dbus-test-runner
@@ -60,6 +61,7 @@ community/ofonoctl
 community/persistent-cache-cpp
 community/presage
 community/process-cpp
+community/properties-cpp
 community/qdjango
 community/qmenumodel
 community/qqc2-suru-style
