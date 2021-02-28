@@ -30,7 +30,7 @@ kde-unstable/calindori
 kde-unstable/discover
 kde-unstable/extra-cmake-modules
 kde-unstable/frameworkintegration
-kde-unstable/index
+kde-unstable/index-fm
 kde-unstable/kaccounts-integration
 kde-unstable/kaccounts-providers
 kde-unstable/kactivities
