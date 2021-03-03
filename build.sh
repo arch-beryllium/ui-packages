@@ -14,7 +14,7 @@ for repo in extra community kde-unstable; do
   tar -xzf "$tmpdir/$repo.db" -C "$tmpdir/$repo" >/dev/null 2>&1
 done
 
-for ui in "plasma-mobile" "lomiri"; do
+for ui in "plasma-mobile" "lomiri" "phosh"; do
   IFS=$'\n' read -d '' -r -a packages <"$ui.packages"
   mkdir -p repo/$ui
 

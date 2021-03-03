@@ -11,4 +11,7 @@ Server = https://raw.githubusercontent.com/arch-beryllium/ui-packages/packages/p
 
 [lomiri]
 Server = https://raw.githubusercontent.com/arch-beryllium/ui-packages/packages/lomiri
+
+[phosh]
+Server = https://raw.githubusercontent.com/arch-beryllium/ui-packages/packages/phosh
 ```
