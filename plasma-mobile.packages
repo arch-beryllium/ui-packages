@@ -114,6 +114,7 @@ kde-unstable/kwidgetsaddons
 kde-unstable/kwin
 kde-unstable/kwindowsystem
 kde-unstable/kxmlgui
+kde-unstable/layer-shell-qt
 kde-unstable/libkgapi
 kde-unstable/libkscreen
 kde-unstable/libksysguard
