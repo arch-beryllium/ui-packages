@@ -18,6 +18,7 @@ extra/qt5-es2-declarative
 extra/qt5-es2-multimedia
 extra/qt5-es2-wayland
 extra/qt5-es2-xcb-private-headers
+kde-unstable/angelfish
 kde-unstable/attica
 kde-unstable/baloo
 kde-unstable/bluedevil
@@ -120,14 +121,13 @@ kde-unstable/libkscreen
 kde-unstable/libksysguard
 kde-unstable/libquotient
 kde-unstable/maliit-keyboard
+kde-unstable/maui-nota
 kde-unstable/mauikit
 kde-unstable/milou
 kde-unstable/modemmanager-qt
 kde-unstable/neochat
 kde-unstable/networkmanager-qt
-kde-unstable/maui-nota
 kde-unstable/oxygen
-kde-unstable/angelfish
 kde-unstable/plasma-camera
 kde-unstable/plasma-dialer
 kde-unstable/plasma-framework
