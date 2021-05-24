@@ -100,6 +100,7 @@ kde-unstable/krunner
 kde-unstable/kscreen
 kde-unstable/kscreenlocker
 kde-unstable/kservice
+kde-unstable/ksystemstats
 kde-unstable/ktexteditor
 kde-unstable/ktextwidgets
 kde-unstable/ktrip
@@ -123,6 +124,7 @@ kde-unstable/libquotient
 kde-unstable/maliit-keyboard
 kde-unstable/maui-nota
 kde-unstable/mauikit
+kde-unstable/mauikit-accounts
 kde-unstable/mauikit-filebrowsing
 kde-unstable/milou
 kde-unstable/modemmanager-qt
