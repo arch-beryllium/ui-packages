@@ -5,7 +5,6 @@ community/libofono-qt
 community/libqofono-qt5
 community/mplus-font
 community/ofonoctl
-community/okular-mobile
 community/plasma-mobile-settings
 community/plymouth-shim
 community/qt5-pim
@@ -129,6 +128,7 @@ kde-unstable/milou
 kde-unstable/modemmanager-qt
 kde-unstable/neochat
 kde-unstable/networkmanager-qt
+kde-unstable/okular
 kde-unstable/oxygen
 kde-unstable/plasma-camera
 kde-unstable/plasma-dialer
